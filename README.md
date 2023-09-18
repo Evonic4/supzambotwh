@@ -1,7 +1,7 @@
 # Supzambotwh
 Zammad-controlled telegram bot using web hooks
   
-1. docker: docker push evonic/supzambotwh  
+1. docker: docker pull evonic/supzambotwh:v0.1  
   or cd /usr/share/; git clone https://github.com/Evonic4/supzambotwh.git; mv ./supzambotwh ./zntwh_bot; cd /usr/share/zntwh_bot/;  
   
 2. configure /usr/share/zntwh_bot/settings.conf  
