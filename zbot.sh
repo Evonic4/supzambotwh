@@ -271,12 +271,11 @@ echo $snu > $sender_id
 
 send1 () 
 {
-logger "send1 start"
-
 sender_queue;
 echo $fhsender2"_"$snu".txt" > $fhome"sender.txt"
 mv -f $otv $fhsender2"_"$snu".txt"
 mv -f $fhome"sender.txt" $fhsender1"_"$snu".txt"
+logger "send1 start snu="$snu
 }
 
 
@@ -284,10 +283,8 @@ mv -f $fhome"sender.txt" $fhsender1"_"$snu".txt"
 
 send ()
 {
-logger "send start"
-
 dl=$(wc -m $otv | awk '{ print $1 }')
-echo "dl="$dl
+logger "send start dl="$dl
 if [ "$dl" -gt "4000" ]; then
 	sv=$(echo "$dl/4000" | bc)
 	sv=$((sv+1))
