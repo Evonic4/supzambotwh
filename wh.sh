@@ -67,8 +67,8 @@ fi
 send1 () 
 {
 logger "send1 start"
-mv -f $otv $fhsender2$$number".txt"
-echo $fhsender2$$number".txt" > $fhsender1$$number".txt"
+mv -f $otv $fhsender2$number".txt"
+echo $fhsender2$number".txt" > $fhsender1$number".txt"
 }
 
 

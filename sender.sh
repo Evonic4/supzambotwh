@@ -73,7 +73,6 @@ function logger()
 {
 local date1=`date '+ %Y-%m-%d %H:%M:%S'`
 echo $date1" sender_"$bname": "$1
-
 }
 
 
@@ -134,10 +133,23 @@ fi
 }
 
 
+pravka_teg () 
+{
+#<b></b>
+sed 's/<b>/B000000000001/g' $mess_path > $fhome"sender_pravkateg_b1.txt"
+sed 's/<\/b>/B000000000002/g' $fhome"sender_pravkateg_b1.txt" > $fhome"sender_pravkateg_b2.txt"
+sed 's/</ /g' $fhome"sender_pravkateg_b2.txt" > $fhome"sender_pravkateg1.txt"
+sed 's/>/ /g' $fhome"sender_pravkateg1.txt" > $fhome"sender_pravkateg2.txt"
+sed 's/B000000000001/<b>/g' $fhome"sender_pravkateg2.txt" > $fhome"sender_pravkateg_b01.txt"
+sed 's/B000000000002/<\/b>/g' $fhome"sender_pravkateg_b01.txt" > $fhome"sender_pravkateg_b02.txt"
+cp -f $fhome"sender_pravkateg_b02.txt" $mess_path
+}
+
 
 directly () {
 logger " "
 logger "sender directly"
+[ "$(grep -c "<" $mess_path)" -gt "0" ] || [ "$(grep -c ">" $mess_path)" -gt "0" ] && pravka_teg
 
 IFS=$'\x10'
 text=`cat $mess_path`
