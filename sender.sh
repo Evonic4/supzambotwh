@@ -135,10 +135,8 @@ fi
 
 pravka_teg () 
 {
-#<b></b>
-sed 's/<b>/B000000000001/g' $mess_path > $fhome"sender_pravkateg_b1.txt"
-sed 's/<\/b>/B000000000002/g' $fhome"sender_pravkateg_b1.txt" > $fhome"sender_pravkateg_b2.txt"
-sed 's/</ /g' $fhome"sender_pravkateg_b2.txt" > $fhome"sender_pravkateg1.txt"
+#все теги наХ
+sed 's/</ /g' $mess_path > $fhome"sender_pravkateg1.txt"
 sed 's/>/ /g' $fhome"sender_pravkateg1.txt" > $fhome"sender_pravkateg2.txt"
 sed 's/B000000000001/<b>/g' $fhome"sender_pravkateg2.txt" > $fhome"sender_pravkateg_b01.txt"
 sed 's/B000000000002/<\/b>/g' $fhome"sender_pravkateg_b01.txt" > $fhome"sender_pravkateg_b02.txt"
