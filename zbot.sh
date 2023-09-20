@@ -367,15 +367,15 @@ upd_id=$(sed -n 1"p" $ftb"lastid.txt" | tr -d '\r')
 logger "parce upd_id ="$upd_id
 
 if [ "$mi_col" -gt "0" ]; then
-for (( i=1;i<=$mi_col;i++)); do
-	i1=$((i-1))
-	mi=$(cat $ftb"in.txt" | jq ".result[$i1].update_id" | tr -d '\r')
+for (( i=1;i<$mi_col;i++)); do
+	mi=$(cat $ftb"in.txt" | jq ".result[$i].update_id" | tr -d '\r')
 	logger "parce update_id="$mi
 
 	[ -z "$mi" ] && mi=0
+	[ "$mi" == "null" ] && mi=0
 	
 	logger "parce cycle upd_id="$upd_id", i="$i", mi="$mi
-	if [ "$upd_id" -ge "$mi" ] || [ "$mi" -eq "0" ] || [ "$mi" == "null" ]; then
+	if [ "$upd_id" -ge "$mi" ] || [ "$mi" -eq "0" ]; then
 		ffufuf=1
 		else
 		ffufuf=0
@@ -384,11 +384,11 @@ for (( i=1;i<=$mi_col;i++)); do
 	
 	
 	if [ "$ffufuf" -eq "0" ]; then
-		chat_id=$(cat $ftb"in.txt" | jq ".result[$i1].message.chat.id" | sed 's/-/z/g' | tr -d '\r')
+		chat_id=$(cat $ftb"in.txt" | jq ".result[$i].message.chat.id" | sed 's/-/z/g' | tr -d '\r')
 		[ "$logging_level" == "1" ] && logger "parce chat_id="$chat_id
 		if [ "$(echo $chat_id1|sed 's/-/z/g'| tr -d '\r'| grep $chat_id)" ]; then
 			logger "parse chat_id="$chat_id" -> OK"
-			text=$(cat $ftb"in.txt" | jq ".result[$i1].message.text" | sed 's/\"/ /g' | sed 's/^[ \t]*//;s/[ \t]*$//' | tr -d '\r')
+			text=$(cat $ftb"in.txt" | jq ".result[$i].message.text" | sed 's/\"/ /g' | sed 's/^[ \t]*//;s/[ \t]*$//' | tr -d '\r')
 			[ "$logging_level" == "1" ] && logger "parse text="$text
 			#echo $text > $home_trbot"t.txt"
 			roborob;
@@ -398,9 +398,13 @@ for (( i=1;i<=$mi_col;i++)); do
 			logger "parce dont! chat_id="$chat_id" NOT OK"
 		fi
 	fi
+	if [ "$ffufuf" -eq "1" ]; then
+		logger "parce lastid >= mi"
+	fi
 done
+[ "$ffufuf" -eq "0" ] && echo $mi > $ftb"lastid.txt" && logger "parce mi -> lastid.txt"
 fi
-[ "$mi" -gt "0" ] && echo $mi > $ftb"lastid.txt" && logger "parce mi > lastid"
+#[ "$mi" -gt "0" ] && echo $mi > $ftb"lastid.txt" && logger "parce mi > lastid"
 [ "$logging_level" == "1" ] && logger "parce end"
 }
 
