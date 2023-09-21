@@ -90,11 +90,16 @@ customer=$customer1" "$customer2" "$customer3
 statet1=$(sed -n $statet"p" $fhome"t_st.txt" | tr -d '\r')
 groupt1=$(sed -n $groupt"p" $fhome"t_gr.txt" | tr -d '\r')
 priorityt1=$(sed -n $priorityt"p" $fhome"t_pr.txt" | tr -d '\r')
-#logger "ticket_status statet1="$statet1
+
+ticket_id=$(cat $fhome"zticket.txt" | grep -m1 "\"id\":" | sed 's/: /TQ4534534/g' | awk -F"TQ4534534" '{print $2}' | sed 's/\"/ /g' | sed 's/\,/ /g' | sed 's/^[ \t]*//;s/[ \t]*$//')
+url=$urlpoint"/#ticket/zoom/"$ticket_id
+
 
 echo "Ticket="$ttst > $fhome"tst.txt"
 echo $titlett >> $fhome"tst.txt"
 echo "customer: "$customer >> $fhome"tst.txt"
+echo $url >> $fhome"tst.txt"
+echo >> $fhome"tst.txt"
 echo "group: "$groupt1 >> $fhome"tst.txt"
 echo "state: "$statet1 >> $fhome"tst.txt"
 echo "priority: "$priorityt1 >> $fhome"tst.txt"
