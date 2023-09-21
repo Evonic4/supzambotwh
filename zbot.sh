@@ -166,7 +166,7 @@ if [ "$text" = "/bs" ] || [ "$text" = "/status" ]; then
 	local naustatus1=0
 	naustatus1=$(sed -n "27p" $fhome"sett.conf" | tr -d '\r')
 	[ "$naustatus1" -eq "0" ] && echo "Notification about API unavailability OFF" >> $fhome"ss.txt"
-	[ "$naustatus1" -gt "0" ] && echo "Notification about API unavailability every "$naustatus1" min ON" >> $fhome"ss.txt"
+	[ "$naustatus1" -gt "0" ] && echo "Notification about API unavailability every 5 min ON" >> $fhome"ss.txt"
 	
 	#telegram API errors
 	sumi=$((tinp_ok+tinp_err))
