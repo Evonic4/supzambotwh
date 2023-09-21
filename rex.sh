@@ -2,7 +2,7 @@
 export PATH="$PATH:/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin"
 
 fhome=/usr/share/zntwh_bot/
-bui=$(sed -n 11"p" $fhome"settings.conf" | tr -d '\r')
+bui=$(sed -n 11"p" $fhome"sett.conf" | tr -d '\r')
 log=$fhome"rex_log.txt"
 f_text=$1
 echo > $log

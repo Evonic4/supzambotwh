@@ -20,18 +20,18 @@ mkdir -p $fhsender1
 mkdir -p $fhsender2
 #echo 0 > $sender_id
 
-ssec1=$(sed -n 10"p" $fhome"settings.conf" | tr -d '\r')
+ssec1=$(sed -n 10"p" $fhome"sett.conf" | tr -d '\r')
 #logger "ssec1="$ssec1
-bname=$(sed -n 11"p" $fhome"settings.conf" | tr -d '\r')
-token=$(sed -n "1p" $fhome"settings.conf" | tr -d '\r')
-proxy=$(sed -n 5"p" $fhome"settings.conf" | tr -d '\r')
-bicons=$(sed -n 12"p" $fhome"settings.conf" | tr -d '\r')
-kartinka=$(sed -n 3"p" $fhome"settings.conf" | tr -d '\r')
-muter1=$(sed -n 20"p" $fhome"settings.conf" | tr -d '\r')
-ssec=$(sed -n 19"p" $fhome"settings.conf" | tr -d '\r')
-progons=$(sed -n 13"p" $fhome"settings.conf" | tr -d '\r')
-logging_level=$(sed -n 14"p" $fhome"settings.conf" | tr -d '\r')
-chat_id=$(sed -n "2p" $fhome"settings.conf" | sed 's/z/-/g' | tr -d '\r')
+bname=$(sed -n 11"p" $fhome"sett.conf" | tr -d '\r')
+token=$(sed -n "1p" $fhome"sett.conf" | tr -d '\r')
+proxy=$(sed -n 5"p" $fhome"sett.conf" | tr -d '\r')
+bicons=$(sed -n 12"p" $fhome"sett.conf" | tr -d '\r')
+kartinka=$(sed -n 3"p" $fhome"sett.conf" | tr -d '\r')
+muter1=$(sed -n 20"p" $fhome"sett.conf" | tr -d '\r')
+ssec=$(sed -n 19"p" $fhome"sett.conf" | tr -d '\r')
+progons=$(sed -n 13"p" $fhome"sett.conf" | tr -d '\r')
+logging_level=$(sed -n 14"p" $fhome"sett.conf" | tr -d '\r')
+chat_id=$(sed -n "2p" $fhome"sett.conf" | sed 's/z/-/g' | tr -d '\r')
 
 kkik=0
 sendok=0
@@ -91,8 +91,8 @@ test=$(sed -n $i"p" $sender_list | tr -d '\r')
 logger "sender str_col>0"
 
 logger "sender test="$test
-bicons=$(sed -n 12"p" $fhome"settings.conf" | tr -d '\r')
-muter1=$(sed -n 20"p" $fhome"settings.conf" | tr -d '\r')
+bicons=$(sed -n 12"p" $fhome"sett.conf" | tr -d '\r')
+muter1=$(sed -n 20"p" $fhome"sett.conf" | tr -d '\r')
 mess_path=$(sed -n "1p" $test | tr -d '\r')			#путь к мессаджу
 
 	
@@ -185,8 +185,10 @@ unset IFS
 
 PID=$$
 echo $PID > $fPID
-Init2;
 logger "sender start"
+cp -f $fhome"settings.conf" $fhome"sett.conf"
+
+Init2;
 integrity	#первый старт
 
 while true

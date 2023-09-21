@@ -16,18 +16,18 @@ function Init()
 {
 logger "Init"
 
-opov=$(sed -n "7p" $ftb"settings.conf" | tr -d '\r')
-progons=$(sed -n 13"p" $fhome"settings.conf" | tr -d '\r')
-logging_level=$(sed -n 14"p" $fhome"settings.conf" | tr -d '\r')
-bname=$(sed -n 11"p" $fhome"settings.conf" | tr -d '\r')
-tmode=$(sed -n 16"p" $ftb"settings.conf" | tr -d '\r')
-mdt_start=$(sed -n 17"p" $ftb"settings.conf" |sed 's/\://g'|sed 's/\-//g'|sed 's/ //g'| tr -d '\r')
-mdt_end=$(sed -n 18"p" $ftb"settings.conf" |sed 's/\://g'|sed 's/\-//g'|sed 's/ //g' | tr -d '\r')
+opov=$(sed -n "7p" $ftb"sett.conf" | tr -d '\r')
+progons=$(sed -n 13"p" $fhome"sett.conf" | tr -d '\r')
+logging_level=$(sed -n 14"p" $fhome"sett.conf" | tr -d '\r')
+bname=$(sed -n 11"p" $fhome"sett.conf" | tr -d '\r')
+tmode=$(sed -n 16"p" $ftb"sett.conf" | tr -d '\r')
+mdt_start=$(sed -n 17"p" $ftb"sett.conf" |sed 's/\://g'|sed 's/\-//g'|sed 's/ //g'| tr -d '\r')
+mdt_end=$(sed -n 18"p" $ftb"sett.conf" |sed 's/\://g'|sed 's/\-//g'|sed 's/ //g' | tr -d '\r')
 
-port=$(sed -n 8"p" $fhome"settings.conf" | tr -d '\r')
-ssec=$(sed -n 9"p" $fhome"settings.conf" | tr -d '\r')
-urlpoint1=$(sed -n 23"p" $fhome"settings.conf" | tr -d '\r')
-urlpoint2=$(sed -n 24"p" $fhome"settings.conf" | tr -d '\r')
+port=$(sed -n 8"p" $fhome"sett.conf" | tr -d '\r')
+ssec=$(sed -n 9"p" $fhome"sett.conf" | tr -d '\r')
+urlpoint1=$(sed -n 23"p" $fhome"sett.conf" | tr -d '\r')
+urlpoint2=$(sed -n 24"p" $fhome"sett.conf" | tr -d '\r')
 urlpoint=$urlpoint1$urlpoint2
 }
 
@@ -74,7 +74,7 @@ echo $fhsender2$number".txt" > $fhsender1$number".txt"
 
 night_mode ()  	
 {
-tmode=$(sed -n 16"p" $ftb"settings.conf" | tr -d '\r')
+tmode=$(sed -n 16"p" $ftb"sett.conf" | tr -d '\r')
 if [ "$tmode" == "1" ]; then
 	mdt1=$(date '+%H%M%S')
 	logger "night_mode mdt1="$mdt1" mdt_start="$mdt_start" mdt_end="$mdt_end

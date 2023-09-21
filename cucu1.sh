@@ -10,10 +10,10 @@ if ! [ -f $fPID ]; then
 	PID=$$
 	echo $PID > $fPID
 	ssec=5
-	token=$(sed -n 1"p" $ftb"settings.conf" | tr -d '\r')
-	proxy=$(sed -n 5"p" $ftb"settings.conf" | tr -d '\r')
-	ssec=$(sed -n 19"p" $ftb"settings.conf" | tr -d '\r')
-	logging_level=$(sed -n 14"p" $fhome"settings.conf" | tr -d '\r')
+	token=$(sed -n 1"p" $ftb"sett.conf" | tr -d '\r')
+	proxy=$(sed -n 5"p" $ftb"sett.conf" | tr -d '\r')
+	ssec=$(sed -n 19"p" $ftb"sett.conf" | tr -d '\r')
+	logging_level=$(sed -n 14"p" $fhome"sett.conf" | tr -d '\r')
 
 	if [ -z "$proxy" ]; then
 		curl -k -s -L -m $ssec https://api.telegram.org/bot$token/getUpdates 1>$ftb"in0.txt" 2>$ftb"in0_err.txt"

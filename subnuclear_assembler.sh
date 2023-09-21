@@ -16,23 +16,23 @@ function Init2()
 {
 logger "Init2"
 
-opov=$(sed -n "7p" $ftb"settings.conf" | tr -d '\r')
-progons=$(sed -n 13"p" $fhome"settings.conf" | tr -d '\r')
-logging_level=$(sed -n 14"p" $fhome"settings.conf" | tr -d '\r')
-bname=$(sed -n 11"p" $fhome"settings.conf" | tr -d '\r')
-tmode=$(sed -n 16"p" $ftb"settings.conf" | tr -d '\r')
-mdt_start=$(sed -n 17"p" $ftb"settings.conf" |sed 's/\://g'|sed 's/\-//g'|sed 's/ //g'| tr -d '\r')
-mdt_end=$(sed -n 18"p" $ftb"settings.conf" |sed 's/\://g'|sed 's/\-//g'|sed 's/ //g' | tr -d '\r')
+opov=$(sed -n "7p" $ftb"sett.conf" | tr -d '\r')
+progons=$(sed -n 13"p" $fhome"sett.conf" | tr -d '\r')
+logging_level=$(sed -n 14"p" $fhome"sett.conf" | tr -d '\r')
+bname=$(sed -n 11"p" $fhome"sett.conf" | tr -d '\r')
+tmode=$(sed -n 16"p" $ftb"sett.conf" | tr -d '\r')
+mdt_start=$(sed -n 17"p" $ftb"sett.conf" |sed 's/\://g'|sed 's/\-//g'|sed 's/ //g'| tr -d '\r')
+mdt_end=$(sed -n 18"p" $ftb"sett.conf" |sed 's/\://g'|sed 's/\-//g'|sed 's/ //g' | tr -d '\r')
 
-user1=$(sed -n 21"p" $fhome"settings.conf" | tr -d '\r')
-pass1=$(sed -n 22"p" $fhome"settings.conf" | tr -d '\r')
-urlpoint1=$(sed -n 23"p" $fhome"settings.conf" | tr -d '\r')
-urlpoint2=$(sed -n 24"p" $fhome"settings.conf" | tr -d '\r')
+user1=$(sed -n 21"p" $fhome"sett.conf" | tr -d '\r')
+pass1=$(sed -n 22"p" $fhome"sett.conf" | tr -d '\r')
+urlpoint1=$(sed -n 23"p" $fhome"sett.conf" | tr -d '\r')
+urlpoint2=$(sed -n 24"p" $fhome"sett.conf" | tr -d '\r')
 urlpoint=$urlpoint1$urlpoint2
 echo "machine "$urlpoint2" login "$user1 "password "$pass1 > $fhome"cr.txt"
-ztich=$(sed -n 26"p" $fhome"settings.conf" | tr -d '\r')
+ztich=$(sed -n 26"p" $fhome"sett.conf" | tr -d '\r')
 
-nau=$(sed -n 27"p" $ftb"settings.conf" | tr -d '\r')
+nau=$(sed -n 27"p" $ftb"sett.conf" | tr -d '\r')
 }
 
 
@@ -58,7 +58,7 @@ fi
 
 night_mode ()  	
 {
-tmode=$(sed -n 16"p" $ftb"settings.conf" | tr -d '\r')
+tmode=$(sed -n 16"p" $ftb"sett.conf" | tr -d '\r')
 if [ "$tmode" == "1" ]; then
 	mdt1=$(date '+%H%M%S')
 	[ "$logging_level" == "1" ] && logger "night_mode mdt1="$mdt1" mdt_start="$mdt_start" mdt_end="$mdt_end
@@ -153,7 +153,7 @@ autohcheck_nau ()
 local api_status=""
 
 api_status=$(sed -n 1"p" $fhome"check_api2.txt" | tr -d '\r')
-nau=$(sed -n 27"p" $fhome"settings.conf" | tr -d '\r')
+nau=$(sed -n 27"p" $fhome"sett.conf" | tr -d '\r')
 #nau1=0	#реальный статус nau в ПО
 
 [ "$logging_level" == "1" ] && logger "autohcheck_nau api_status="$api_status

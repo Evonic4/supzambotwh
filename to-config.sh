@@ -28,12 +28,12 @@ meaning9=$9
 
 echo "line="$line", meaning="$meaning > $fhome"to-config-log.txt"
 
-str_col=$(grep -cv "^TTTTT" $fhome"settings.conf")
+str_col=$(grep -cv "^TTTTT" $fhome"sett.conf")
 echo "str_col="$str_col >> $fhome"to-config-log.txt"
 rm -f $fhome"settings1.conf" && touch $fhome"settings1.conf"
 
 for (( i=1;i<=$str_col;i++)); do
-test=$(sed -n $i"p" $fhome"settings.conf")
+test=$(sed -n $i"p" $fhome"sett.conf")
 if [ "$i" -eq "$line" ]; then
 	echo "i=line="$i >> $fhome"to-config-log.txt"
 	echo $meaning >> $fhome"settings1.conf"
@@ -42,5 +42,5 @@ else
 fi
 done
 
-cp -f $fhome"settings1.conf" $fhome"settings.conf"
+cp -f $fhome"settings1.conf" $fhome"sett.conf"
 

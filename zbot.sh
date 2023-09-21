@@ -17,32 +17,32 @@ function Init2()
 {
 logger "init start"
 #load conf
-chat_id1=$(sed -n 2"p" $fhome"settings.conf" | tr -d '\r')
+chat_id1=$(sed -n 2"p" $fhome"sett.conf" | tr -d '\r')
 #echo $chat_id1 | tr " " "\n" > $fhome"chats.txt"
 #chat_id1=$(sed -n 1"p" $fhome"chats.txt" | tr -d '\r')
 
-sec4=$(sed -n "6p" $fhome"settings.conf" | tr -d '\r')
-opov=$(sed -n "7p" $fhome"settings.conf" | tr -d '\r')
-port_wh=$(sed -n "8p" $fhome"settings.conf" | tr -d '\r')
-bname=$(sed -n 11"p" $fhome"settings.conf" | tr -d '\r')
-progons=$(sed -n 13"p" $fhome"settings.conf" | tr -d '\r')
-logging_level=$(sed -n 14"p" $fhome"settings.conf" | tr -d '\r')
-startopo=$(sed -n 15"p" $fhome"settings.conf" | tr -d '\r')
-user1=$(sed -n 21"p" $fhome"settings.conf" | tr -d '\r')
-pass1=$(sed -n 22"p" $fhome"settings.conf" | tr -d '\r')
-urlpoint1=$(sed -n 23"p" $fhome"settings.conf" | tr -d '\r')
-urlpoint2=$(sed -n 24"p" $fhome"settings.conf" | tr -d '\r')
+sec4=$(sed -n "6p" $fhome"sett.conf" | tr -d '\r')
+opov=$(sed -n "7p" $fhome"sett.conf" | tr -d '\r')
+port_wh=$(sed -n "8p" $fhome"sett.conf" | tr -d '\r')
+bname=$(sed -n 11"p" $fhome"sett.conf" | tr -d '\r')
+progons=$(sed -n 13"p" $fhome"sett.conf" | tr -d '\r')
+logging_level=$(sed -n 14"p" $fhome"sett.conf" | tr -d '\r')
+startopo=$(sed -n 15"p" $fhome"sett.conf" | tr -d '\r')
+user1=$(sed -n 21"p" $fhome"sett.conf" | tr -d '\r')
+pass1=$(sed -n 22"p" $fhome"sett.conf" | tr -d '\r')
+urlpoint1=$(sed -n 23"p" $fhome"sett.conf" | tr -d '\r')
+urlpoint2=$(sed -n 24"p" $fhome"sett.conf" | tr -d '\r')
 urlpoint=$urlpoint1$urlpoint2
 #echo "machine "$urlpoint2" login "$user1 "password "$pass1 > $fhome"cr.txt" #запуск в 
 
-s_mute=$(sed -n 20"p" $fhome"settings.conf" | tr -d '\r')
-tmode=$(sed -n 16"p" $fhome"settings.conf" | tr -d '\r')
-progsz=$(sed -n 25"p" $fhome"settings.conf" | tr -d '\r')
-ztich=$(sed -n 26"p" $fhome"settings.conf" | tr -d '\r')
+s_mute=$(sed -n 20"p" $fhome"sett.conf" | tr -d '\r')
+tmode=$(sed -n 16"p" $fhome"sett.conf" | tr -d '\r')
+progsz=$(sed -n 25"p" $fhome"sett.conf" | tr -d '\r')
+ztich=$(sed -n 26"p" $fhome"sett.conf" | tr -d '\r')
 
-mdt_start=$(sed -n 17"p" $fhome"settings.conf" |sed 's/\://g'|sed 's/\-//g'|sed 's/ //g'| tr -d '\r')
-mdt_end=$(sed -n 18"p" $fhome"settings.conf" |sed 's/\://g'|sed 's/\-//g'|sed 's/ //g' | tr -d '\r')
-#pochto=$(sed -n 21"p" $fhome"settings.conf" | tr -d '\r')
+mdt_start=$(sed -n 17"p" $fhome"sett.conf" |sed 's/\://g'|sed 's/\-//g'|sed 's/ //g'| tr -d '\r')
+mdt_end=$(sed -n 18"p" $fhome"sett.conf" |sed 's/\://g'|sed 's/\-//g'|sed 's/ //g' | tr -d '\r')
+#pochto=$(sed -n 21"p" $fhome"sett.conf" | tr -d '\r')
 
 snu=0	#номер файла sender_queue
 tinp_ok=0
@@ -137,19 +137,19 @@ if [ "$text" = "/bs" ] || [ "$text" = "/status" ]; then
 	[ "$check_wh_port" == "0" ] && echo "Port webhook CLOSED" >> $fhome"ss.txt"
 	[ "$check_wh_port" == "1" ] && echo "Port webhook OPEN" >> $fhome"ss.txt"
 	#mute
-	s_mute=$(sed -n 20"p" $fhome"settings.conf" | tr -d '\r')
+	s_mute=$(sed -n 20"p" $fhome"sett.conf" | tr -d '\r')
 	[ "$s_mute" == "0" ] && echo "Mute OFF" >> $fhome"ss.txt"
 	[ "$s_mute" == "1" ] && echo "Mute ON" >> $fhome"ss.txt"
 	#Night mode
-	tmode=$(sed -n 16"p" $fhome"settings.conf" | tr -d '\r')
-	d1=$(sed -n 17"p" $fhome"settings.conf" | tr -d '\r')
-	d2=$(sed -n 18"p" $fhome"settings.conf" | tr -d '\r')
+	tmode=$(sed -n 16"p" $fhome"sett.conf" | tr -d '\r')
+	d1=$(sed -n 17"p" $fhome"sett.conf" | tr -d '\r')
+	d2=$(sed -n 18"p" $fhome"sett.conf" | tr -d '\r')
 	[ "$tmode" == "0" ] && echo "Night mode OFF" >> $fhome"ss.txt"
 	[ "$tmode" == "1" ] && echo "Night mode ON "$d1" - "$d2 >> $fhome"ss.txt"
 	[ -f $fhome"ticket_nm_buf.txt" ] && echo $(cat $fhome"ticket_nm_buf.txt") >> $fhome"ss.txt"
 	#Notification about API unavailability 
 	local naustatus1=0
-	naustatus1=$(sed -n "27p" $fhome"settings.conf" | tr -d '\r')
+	naustatus1=$(sed -n "27p" $fhome"sett.conf" | tr -d '\r')
 	[ "$naustatus1" -eq "0" ] && echo "Notification about API unavailability OFF" >> $fhome"ss.txt"
 	[ "$naustatus1" -gt "0" ] && echo "Notification about API unavailability every "$naustatus1" min ON" >> $fhome"ss.txt"
 	#telegram API errors
@@ -183,7 +183,7 @@ if [ "$text" = "/nau off" ] || [ "$text" = "/nau OFF" ] || [ "$text" = "/nau Off
 	otv=$fhome"otv_nau.txt";	send;
 fi
 if [ "$text" = "/nau" ] || [ "$text" = "/nau status" ]; then
-	local naustatus=$(sed -n "27p" $fhome"settings.conf" | tr -d '\r')
+	local naustatus=$(sed -n "27p" $fhome"sett.conf" | tr -d '\r')
 	logger "roborob nau status="$naustatus
 	[ "$naustatus" == "0" ] && echo "Notification about API unavailability OFF" > $fhome"otv_nau.txt"
 	[ "$naustatus" == "1" ] && echo "Notification about API unavailability every "$naustatus" min ON" > $fhome"otv_nau.txt"
@@ -199,7 +199,7 @@ if [[ "$text" == "/com"* ]]; then
 	com2=$(sed -n 3"p" $fhome"com_conf.txt" | tr -d '\r')
 		
 	if [[ $com1 =~ ^[0-9]+$ ]]; then
-		older_conf=$(sed -n $com1"p" $fhome"settings.conf" | tr -d '\r')
+		older_conf=$(sed -n $com1"p" $fhome"sett.conf" | tr -d '\r')
 		logger "configure com1="$com1" com2="$com2" older_conf="$older_conf
 		echo "Configure "$older_conf" -> "$com2 > $fhome"configure.txt"
 		$fhome"to-config.sh" $com1 $com2 &
@@ -224,9 +224,9 @@ if [ "$text" = "/nm off" ] || [ "$text" = "/nm OFF" ] || [ "$text" = "/nm Off" ]
 	otv=$fhome"otv_tmode.txt";	send;
 fi
 if [ "$text" = "/nm status" ] || [ "$text" = "/nm stat" ] || [ "$text" = "/nm Status" ] || [ "$text" = "/nm STATUS" ] || [ "$text" = "/nm" ]; then
-	tmode=$(sed -n 16"p" $fhome"settings.conf" | tr -d '\r')
-	d1=$(sed -n 17"p" $fhome"settings.conf" | tr -d '\r')
-	d2=$(sed -n 18"p" $fhome"settings.conf" | tr -d '\r')
+	tmode=$(sed -n 16"p" $fhome"sett.conf" | tr -d '\r')
+	d1=$(sed -n 17"p" $fhome"sett.conf" | tr -d '\r')
+	d2=$(sed -n 18"p" $fhome"sett.conf" | tr -d '\r')
 	logger "roborob nm status="$tmode
 	[ "$tmode" == "0" ] && echo "Night mode off" > $fhome"otv_tmode.txt"
 	[ "$tmode" == "1" ] && echo "Night mode on "$d1" - "$d2 > $fhome"otv_tmode.txt"
@@ -248,7 +248,7 @@ if [ "$text" = "/mute off" ] || [ "$text" = "/mute OFF" ] || [ "$text" = "/mute 
 	otv=$fhome"otv_mute.txt";	send;
 fi
 if [ "$text" = "/mute status" ] || [ "$text" = "/mute" ] || [ "$text" = "/mute st" ]; then
-	s_mute=$(sed -n 20"p" $fhome"settings.conf" | tr -d '\r')
+	s_mute=$(sed -n 20"p" $fhome"sett.conf" | tr -d '\r')
 	[ "$s_mute" == "0" ] && echo "Mute OFF" > $fhome"otv_mute.txt"
 	[ "$s_mute" == "1" ] && echo "Mute ON" > $fhome"otv_mute.txt"
 	logger "roborob mute "$s_mute
