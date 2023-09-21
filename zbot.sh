@@ -9,7 +9,7 @@ fhsender=$fhome"sender/"
 fhsender1=$fhsender"1/"
 fhsender2=$fhsender"2/"
 sender_id=$fhome"sender_id.txt"
-touch $home"number_list.txt"
+touch $fhome"number_list.txt"
 #autat=0
 fPID=$fhome"pid_zbot.txt"
 
@@ -139,16 +139,20 @@ if [ "$text" = "/bs" ] || [ "$text" = "/status" ]; then
 	[ "$opov" -eq "0" ] && tmprbs1="Managed"
 	[ "$opov" -eq "1" ] && tmprbs1="Messenger"
 	echo $tmprbs1" bot "$bname" "$ver > $fhome"ss.txt"
+	
 	#API zammad status up/down
 	[ -f $fhome"check_api2.txt" ] && ttrgtrgf=$(sed -n 1"p" $fhome"check_api2.txt" | tr -d '\r') && echo "Zammad API status "$ttrgtrgf >> $fhome"ss.txt"
+	
 	#port wh
 	check_wh_port=$(netstat -tupln | grep -c $port_wh)
 	[ "$check_wh_port" == "0" ] && echo "Port webhook CLOSED" >> $fhome"ss.txt"
 	[ "$check_wh_port" == "1" ] && echo "Port webhook OPEN" >> $fhome"ss.txt"
+	
 	#mute
 	s_mute=$(sed -n 20"p" $fhome"sett.conf" | tr -d '\r')
 	[ "$s_mute" == "0" ] && echo "Mute OFF" >> $fhome"ss.txt"
 	[ "$s_mute" == "1" ] && echo "Mute ON" >> $fhome"ss.txt"
+	
 	#Night mode
 	tmode=$(sed -n 16"p" $fhome"sett.conf" | tr -d '\r')
 	d1=$(sed -n 17"p" $fhome"sett.conf" | tr -d '\r')
@@ -156,11 +160,13 @@ if [ "$text" = "/bs" ] || [ "$text" = "/status" ]; then
 	[ "$tmode" == "0" ] && echo "Night mode OFF "$d1" - "$d2 >> $fhome"ss.txt"
 	[ "$tmode" == "1" ] && echo "Night mode ON "$d1" - "$d2 >> $fhome"ss.txt"
 	[ -f $fhome"ticket_nm_buf.txt" ] && echo $(cat $fhome"ticket_nm_buf.txt") >> $fhome"ss.txt"
+	
 	#Notification about API unavailability 
 	local naustatus1=0
 	naustatus1=$(sed -n "27p" $fhome"sett.conf" | tr -d '\r')
 	[ "$naustatus1" -eq "0" ] && echo "Notification about API unavailability OFF" >> $fhome"ss.txt"
 	[ "$naustatus1" -gt "0" ] && echo "Notification about API unavailability every "$naustatus1" min ON" >> $fhome"ss.txt"
+	
 	#telegram API errors
 	sumi=$((tinp_ok+tinp_err))
 	[ "$sumi" -gt "0" ] && echo "Telegram api send_err:"$(sed -n 1"p" $fhome"err_send.txt" | tr -d '\r')", input_err:"$(echo "scale=2; $tinp_err/$sumi * 100" | bc) >> $fhome"ss.txt"
@@ -168,12 +174,13 @@ if [ "$text" = "/bs" ] || [ "$text" = "/status" ]; then
 	otv=$fhome"ss.txt"
 	send;
 fi
+
 #Notification about API unavailability every 5 min
 if [ "$text" = "/nau on"* ] || [ "$text" = "/nau ON"* ] || [ "$text" = "/nau On"* ]; then
 	echo $text | tr " " "\n" > $fhome"com_nau.txt"
 	local com3=""
 	local cont1=0
-	com3=$(sed -n 3"p" $ftb"com_nau.txt" | tr -d '\r')
+	com3=$(sed -n 3"p" $fhome"com_nau.txt" | tr -d '\r')
 	
 	[[ $com3 =~ ^[0-9]+$ ]] && [ "$com3" -gt "0" ] && cont1=1
 	
@@ -375,12 +382,12 @@ mi=0
 date1=`date '+ %d.%m.%Y %H:%M:%S'`
 mi_col=$(cat $cuf"in.txt" | grep -c update_id | tr -d '\r')
 logger "parce col mi_col ="$mi_col
-upd_id=$(sed -n 1"p" $ftb"lastid.txt" | tr -d '\r')
+upd_id=$(sed -n 1"p" $fhome"lastid.txt" | tr -d '\r')
 logger "parce upd_id ="$upd_id
 
 if [ "$mi_col" -gt "0" ]; then
 for (( i=1;i<$mi_col;i++)); do
-	mi=$(cat $ftb"in.txt" | jq ".result[$i].update_id" | tr -d '\r')
+	mi=$(cat $fhome"in.txt" | jq ".result[$i].update_id" | tr -d '\r')
 	logger "parce update_id="$mi
 
 	[ -z "$mi" ] && mi=0
@@ -396,11 +403,11 @@ for (( i=1;i<$mi_col;i++)); do
 	
 	
 	if [ "$ffufuf" -eq "0" ]; then
-		chat_id=$(cat $ftb"in.txt" | jq ".result[$i].message.chat.id" | sed 's/-/z/g' | tr -d '\r')
+		chat_id=$(cat $fhome"in.txt" | jq ".result[$i].message.chat.id" | sed 's/-/z/g' | tr -d '\r')
 		[ "$logging_level" == "1" ] && logger "parce chat_id="$chat_id
 		if [ "$(echo $chat_id1|sed 's/-/z/g'| tr -d '\r'| grep $chat_id)" ]; then
 			logger "parse chat_id="$chat_id" -> OK"
-			text=$(cat $ftb"in.txt" | jq ".result[$i].message.text" | sed 's/\"/ /g' | sed 's/^[ \t]*//;s/[ \t]*$//' | tr -d '\r')
+			text=$(cat $fhome"in.txt" | jq ".result[$i].message.text" | sed 's/\"/ /g' | sed 's/^[ \t]*//;s/[ \t]*$//' | tr -d '\r')
 			[ "$logging_level" == "1" ] && logger "parse text="$text
 			#echo $text > $home_trbot"t.txt"
 			roborob;
@@ -414,9 +421,9 @@ for (( i=1;i<$mi_col;i++)); do
 		logger "parce lastid >= mi"
 	fi
 done
-[ "$ffufuf" -eq "0" ] && echo $mi > $ftb"lastid.txt" && logger "parce mi -> lastid.txt"
+[ "$ffufuf" -eq "0" ] && echo $mi > $fhome"lastid.txt" && logger "parce mi -> lastid.txt"
 fi
-#[ "$mi" -gt "0" ] && echo $mi > $ftb"lastid.txt" && logger "parce mi > lastid"
+#[ "$mi" -gt "0" ] && echo $mi > $fhome"lastid.txt" && logger "parce mi > lastid"
 [ "$logging_level" == "1" ] && logger "parce end"
 }
 
