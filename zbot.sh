@@ -127,6 +127,7 @@ local ttrgtrgf=""
 local tmprbs1=""
 #logger "roborob text="$text
 otv=""
+logger "roborob start"
 
 if [ "$text" = "/start" ] || [ "$text" = "/?" ] || [ "$text" = "/help" ] || [ "$text" = "/h" ]; then
 	logger "roborob help"
@@ -176,22 +177,14 @@ if [ "$text" = "/bs" ] || [ "$text" = "/status" ]; then
 fi
 
 #Notification about API unavailability every 5 min
-if [ "$text" = "/nau on"* ] || [ "$text" = "/nau ON"* ] || [ "$text" = "/nau On"* ]; then
-	echo $text | tr " " "\n" > $fhome"com_nau.txt"
-	local com3=""
-	local cont1=0
-	com3=$(sed -n 3"p" $fhome"com_nau.txt" | tr -d '\r')
-	
-	[[ $com3 =~ ^[0-9]+$ ]] && [ "$com3" -gt "0" ] && cont1=1
-	
-	if [ "$cont1" -eq "1" ]; then
-		$fhome"to-config.sh" 27 $com3 &
-		echo "Notification about API unavailability every "$com3" min ON" > $fhome"otv_nau.txt"
-		logger "roborob nau ON every "$com3" min"
-		otv=$fhome"otv_nau.txt";	send;
-	fi
+if [ "$text" = "/nau on" ] || [ "$text" = "/nau ON" ] || [ "$text" = "/nau On" ]; then
+	logger "roborob nau ON"
+	$fhome"to-config.sh" 27 1 &
+	echo "Notification about API unavailability ON every 5 min" > $fhome"otv_nau.txt"
+	otv=$fhome"otv_nau.txt";	send;
 fi
 if [ "$text" = "/nau off" ] || [ "$text" = "/nau OFF" ] || [ "$text" = "/nau Off" ]; then
+	logger "roborob nau OFF"
 	$fhome"to-config.sh" 27 0 &
 	echo "Notification about API unavailability OFF" > $fhome"otv_nau.txt"
 	logger "roborob nau OFF"
@@ -200,8 +193,8 @@ fi
 if [ "$text" = "/nau" ] || [ "$text" = "/nau status" ]; then
 	local naustatus=$(sed -n "27p" $fhome"sett.conf" | tr -d '\r')
 	logger "roborob nau status="$naustatus
-	[ "$naustatus" -eq "0" ] && echo "Notification about API unavailability OFF" > $fhome"otv_nau.txt"
-	[ "$naustatus" -gt "0" ] && echo "Notification about API unavailability every "$naustatus" min ON" > $fhome"otv_nau.txt"
+	[ "$naustatus" == "0" ] && echo "Notification about API unavailability OFF" > $fhome"otv_nau.txt"
+	[ "$naustatus" == "1" ] && echo "Notification about API unavailability every 5 min ON" > $fhome"otv_nau.txt"
 	otv=$fhome"otv_nau.txt";	send;
 fi
 #admin management 

@@ -189,7 +189,7 @@ logger "sender start"
 cp -f $fhome"settings.conf" $fhome"sett.conf"
 
 Init2;
-integrity	#первый старт
+#integrity	#первый старт
 
 while true
 do

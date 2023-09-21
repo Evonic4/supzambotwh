@@ -2,7 +2,7 @@ Commands:
 /bs - Bot status
 /ts 12345 - Ticket status
 /mute on/off/status - Mute
-/nau on N/off/status - Notification about API unavailability every N min
+/nau on/off/status - Notification about API unavailability every 5 min
 /nm on/off/status - Night mode,
 notifications only when exiting mode
 (def 00:00 - 09:00)
