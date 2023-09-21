@@ -80,8 +80,12 @@ if [ "$str_col2" -gt "6" ]; then
 statet=$(cat $fhome"zticket.txt" | grep -m1 state_id | awk '{print $2}' | sed 's/\"/ /g' | sed 's/\,/ /g' | sed 's/^[ \t]*//;s/[ \t]*$//')
 groupt=$(cat $fhome"zticket.txt" | grep -m1 group_id | awk '{print $2}' | sed 's/\"/ /g' | sed 's/\,/ /g' | sed 's/^[ \t]*//;s/[ \t]*$//')
 priorityt=$(cat $fhome"zticket.txt" | grep -m1 priority_id | awk '{print $2}' | sed 's/\"/ /g' | sed 's/\,/ /g' | sed 's/^[ \t]*//;s/[ \t]*$//')
-titlett=$(cat $fhome"zticket.txt" | grep title | sed 's/: /TQ4534534/g' | awk -F"TQ4534534" '{print $2}' | sed 's/\"/ /g' | sed 's/\,/ /g' | sed 's/^[ \t]*//;s/[ \t]*$//')
-customer=$(cat $fhome"zticket.txt" | grep -A8 User | grep login | sed 's/: /TQ4534534/g' | awk -F"TQ4534534" '{print $2}' | sed 's/\"/ /g' | sed 's/\,/ /g' | sed 's/^[ \t]*//;s/[ \t]*$//')
+titlett=$(cat $fhome"zticket.txt" | grep -m1 title | sed 's/: /TQ4534534/g' | awk -F"TQ4534534" '{print $2}' | sed 's/\"/ /g' | sed 's/\,/ /g' | sed 's/^[ \t]*//;s/[ \t]*$//')
+
+customer1=$(cat $fhome"zticket.txt" | grep -A8 User | grep firstname | sed 's/: /TQ4534534/g' | awk -F"TQ4534534" '{print $2}' | sed 's/\"/ /g' | sed 's/\,/ /g' | sed 's/^[ \t]*//;s/[ \t]*$//')
+customer2=$(cat $fhome"zticket.txt" | grep -A8 User | grep lastname | sed 's/: /TQ4534534/g' | awk -F"TQ4534534" '{print $2}' | sed 's/\"/ /g' | sed 's/\,/ /g' | sed 's/^[ \t]*//;s/[ \t]*$//')
+customer3=$(cat $fhome"zticket.txt" | grep -A8 User | grep login | sed 's/: /TQ4534534/g' | awk -F"TQ4534534" '{print $2}' | sed 's/\"/ /g' | sed 's/\,/ /g' | sed 's/^[ \t]*//;s/[ \t]*$//')
+customer=$customer1" "$customer2" "$customer3
 
 statet1=$(sed -n $statet"p" $fhome"t_st.txt" | tr -d '\r')
 groupt1=$(sed -n $groupt"p" $fhome"t_gr.txt" | tr -d '\r')
@@ -144,7 +148,7 @@ if [ "$text" = "/bs" ] || [ "$text" = "/status" ]; then
 	tmode=$(sed -n 16"p" $fhome"sett.conf" | tr -d '\r')
 	d1=$(sed -n 17"p" $fhome"sett.conf" | tr -d '\r')
 	d2=$(sed -n 18"p" $fhome"sett.conf" | tr -d '\r')
-	[ "$tmode" == "0" ] && echo "Night mode OFF" >> $fhome"ss.txt"
+	[ "$tmode" == "0" ] && echo "Night mode OFF "$d1" - "$d2 >> $fhome"ss.txt"
 	[ "$tmode" == "1" ] && echo "Night mode ON "$d1" - "$d2 >> $fhome"ss.txt"
 	[ -f $fhome"ticket_nm_buf.txt" ] && echo $(cat $fhome"ticket_nm_buf.txt") >> $fhome"ss.txt"
 	#Notification about API unavailability 
@@ -161,7 +165,6 @@ if [ "$text" = "/bs" ] || [ "$text" = "/status" ]; then
 fi
 #Notification about API unavailability every 5 min
 if [ "$text" = "/nau on"* ] || [ "$text" = "/nau ON"* ] || [ "$text" = "/nau On"* ]; then
-	logger "roborob nau"
 	echo $text | tr " " "\n" > $fhome"com_nau.txt"
 	local com3=""
 	local cont1=0
@@ -185,8 +188,8 @@ fi
 if [ "$text" = "/nau" ] || [ "$text" = "/nau status" ]; then
 	local naustatus=$(sed -n "27p" $fhome"sett.conf" | tr -d '\r')
 	logger "roborob nau status="$naustatus
-	[ "$naustatus" == "0" ] && echo "Notification about API unavailability OFF" > $fhome"otv_nau.txt"
-	[ "$naustatus" == "1" ] && echo "Notification about API unavailability every "$naustatus" min ON" > $fhome"otv_nau.txt"
+	[ "$naustatus" -eq "0" ] && echo "Notification about API unavailability OFF" > $fhome"otv_nau.txt"
+	[ "$naustatus" -gt "0" ] && echo "Notification about API unavailability every "$naustatus" min ON" > $fhome"otv_nau.txt"
 	otv=$fhome"otv_nau.txt";	send;
 fi
 #admin management 
@@ -213,14 +216,18 @@ if [[ "$text" == "/ts"* ]]; then
 fi
 if [ "$text" = "/nm on" ] || [ "$text" = "/nm ON" ] || [ "$text" = "/nm On" ]; then
 	logger "roborob nm ON"
+	d1=$(sed -n 17"p" $fhome"sett.conf" | tr -d '\r')
+	d2=$(sed -n 18"p" $fhome"sett.conf" | tr -d '\r')
 	$fhome"to-config.sh" 16 1 &
-	echo "Night mode on" > $fhome"otv_tmode.txt"
+	echo "Night mode on "$d1" - "$d2 > $fhome"otv_tmode.txt"
 	otv=$fhome"otv_tmode.txt";	send;
 fi
 if [ "$text" = "/nm off" ] || [ "$text" = "/nm OFF" ] || [ "$text" = "/nm Off" ]; then
 	logger "roborob nm OFF"
+	d1=$(sed -n 17"p" $fhome"sett.conf" | tr -d '\r')
+	d2=$(sed -n 18"p" $fhome"sett.conf" | tr -d '\r')
 	$fhome"to-config.sh" 16 0 &
-	echo "Night mode off" > $fhome"otv_tmode.txt"
+	echo "Night mode off "$d1" - "$d2 > $fhome"otv_tmode.txt"
 	otv=$fhome"otv_tmode.txt";	send;
 fi
 if [ "$text" = "/nm status" ] || [ "$text" = "/nm stat" ] || [ "$text" = "/nm Status" ] || [ "$text" = "/nm STATUS" ] || [ "$text" = "/nm" ]; then
