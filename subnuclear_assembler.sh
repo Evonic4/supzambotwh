@@ -174,7 +174,7 @@ if [ "$api_status" == "DOWN" ]; then
 		dtna=$(echo $(date '+ %Y%m%d%H%M%S') | sed 's/^[ \t]*//;s/[ \t]*$//' | tr -d '\r')
 			if [ "$dtna" -gt "$dtna1" ]; then
 				logger "autohcheck_nau dtna1="$dtna1" > dtna="$dtna
-				echo "Zammad API DOWN "$nau" min" > $fhome"nau_alert.txt"
+				echo "Zammad API DOWN 5 min" > $fhome"nau_alert.txt"
 				otv=$fhome"nau_alert.txt"
 				send;
 				set_date_nau;
