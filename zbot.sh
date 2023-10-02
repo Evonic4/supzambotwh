@@ -137,7 +137,7 @@ fi
 if [ "$text" = "/bs" ] || [ "$text" = "/status" ]; then
 	logger "roborob bs"
 	#opov
-	[ "$opov" -eq "0" ] && tmprbs1="Managed"
+	[ "$opov" -eq "0" ] && tmprbs1="Manadged"
 	[ "$opov" -eq "1" ] && tmprbs1="Messenger"
 	echo $tmprbs1" bot "$bname" "$ver > $fhome"ss.txt"
 	
@@ -197,7 +197,7 @@ if [ "$text" = "/nau" ] || [ "$text" = "/nau status" ]; then
 	[ "$naustatus" == "1" ] && echo "Notification about API unavailability every 5 min ON" > $fhome"otv_nau.txt"
 	otv=$fhome"otv_nau.txt";	send;
 fi
-#admin management 
+#admin manadgement 
 if [[ "$text" == "/com"* ]]; then
 	logger "roborob com"
 	echo $text | tr " " "\n" > $fhome"com_conf.txt"
@@ -459,7 +459,7 @@ logger "start zammad bot "$bname" logging_level="$logging_level
 starten_furer;
 
 #start
-[ "$opov" -eq "0" ] && tmps1="managed"
+[ "$opov" -eq "0" ] && tmps1="manadged"
 [ "$opov" -eq "1" ] && tmps1="messenger"
 [ "$startopo" == "1" ] && echo "Start "$tmps1" zammad bot "$bname > $fhome"start.txt" && otv=$fhome"start.txt" && send;
 
