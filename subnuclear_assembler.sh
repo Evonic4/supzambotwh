@@ -142,7 +142,7 @@ echo $fhsender2$$number".txt" > $fhsender1$$number".txt"
 
 set_date_nau ()
 {
-dtna1=$(date -d "$RTIME $nau min" '+ %Y%m%d%H%M%S'| sed 's/^[ \t]*//;s/[ \t]*$//' | tr -d '\r')
+dtna1=$(date -d "$RTIME 5 min" '+ %Y%m%d%H%M%S'| sed 's/^[ \t]*//;s/[ \t]*$//' | tr -d '\r')
 echo $dtna1 > $fhome"nau_date.txt"
 logger "autohcheck_nau set dtna1="$dtna1
 }
